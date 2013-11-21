@@ -17,4 +17,5 @@ tmp
 _yardoc
 doc/
 
-config.yml
+# secrets.yml
+secrets.yml
