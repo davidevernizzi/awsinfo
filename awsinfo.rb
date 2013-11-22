@@ -76,6 +76,23 @@ sg.each do |x|
    end
 end
 
+elb = AWS::ELB.new
+
+elb.load_balancers.each do |e|
+
+    ic = AWS::ELB::InstanceCollection.new e
+
+    puts ic.load_balancer.name
+    ic.health.each do |instance_health|
+        if instance_health[:state] == 'InService'
+            instance = AWS::EC2::Instance.new instance_health[:instance].id
+            puts instance.dns_name
+        end
+    end
+    puts '---'
+    puts
+
+end
 
 #ec2.instances.each do |instance|
 #	puts " #{instance.dns_name} #{instance.status} "
